@@ -1,0 +1,115 @@
+﻿<UserControl
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:local="clr-namespace:Firefly.Wpf.MenuDemo"
+	xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+	xmlns:RecipeBox="clr-namespace:Firefly.Wpf.MenuDemo"
+	mc:Ignorable="d"
+	x:Class="Firefly.Wpf.MenuDemo.MRUList"
+	x:Name="UserControl"
+	d:DesignWidth="600" d:DesignHeight="480">
+	<UserControl.Resources>
+		<ItemsPanelTemplate x:Key="ItemsPanelTemplate1">
+			<WrapPanel IsItemsHost="True"/>
+		</ItemsPanelTemplate>
+		<DataTemplate x:Key="MRUItem">
+			<DataTemplate.Resources>
+				<Storyboard x:Key="OnMouseLeftButtonUp1"/>
+				<Storyboard x:Key="MouseEnter">
+					<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="button">
+						<SplineColorKeyFrame KeyTime="0:0:0.2" Value="#FF4B8CDC"/>
+					</ColorAnimationUsingKeyFrames>
+					<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[2].(GradientStop.Color)" Storyboard.TargetName="button">
+						<SplineColorKeyFrame KeyTime="0:0:0.2" Value="#FF4B8CDC"/>
+					</ColorAnimationUsingKeyFrames>
+				</Storyboard>
+				<Storyboard x:Key="MouseLeave">
+					<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[2].(GradientStop.Color)" Storyboard.TargetName="button">
+						<SplineColorKeyFrame KeyTime="0:0:0.2" Value="Transparent"/>
+					</ColorAnimationUsingKeyFrames>
+					<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="button">
+						<SplineColorKeyFrame KeyTime="0:0:0.2" Value="#FFE5EFFE"/>
+					</ColorAnimationUsingKeyFrames>
+				</Storyboard>
+			</DataTemplate.Resources>
+			<RecipeBox:SmoothMove >
+			<Button x:Name="button" Style="{DynamicResource ButtonStyle1}" BorderBrush="#FFE5EFFE" Margin="15" Command="{Binding Command}">
+				<Button.Background>
+					<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+						<GradientStop Color="Transparent" Offset="0"/>
+						
+						<GradientStop Color="Transparent" Offset="0.8"/>
+						<GradientStop Color="Transparent" Offset="1"/>
+					</LinearGradientBrush>
+				</Button.Background>
+				
+			</Button>
+			</RecipeBox:SmoothMove>
+			
+			<DataTemplate.Triggers>
+				<Trigger Property="IsMouseOver" Value="True">
+					<Trigger.ExitActions>
+						<BeginStoryboard x:Name="MouseLeave_BeginStoryboard" Storyboard="{StaticResource MouseLeave}"/>
+					</Trigger.ExitActions>
+					<Trigger.EnterActions>
+						<BeginStoryboard x:Name="MouseEnter_BeginStoryboard" Storyboard="{StaticResource MouseEnter}"/>
+					</Trigger.EnterActions>
+				</Trigger>
+			</DataTemplate.Triggers>
+			
+		</DataTemplate>
+		<Style x:Key="ButtonFocusVisual">
+			<Setter Property="Control.Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"/>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
+			<GradientStop Color="#F3F3F3" Offset="0"/>
+			<GradientStop Color="#EBEBEB" Offset="0.5"/>
+			<GradientStop Color="#DDDDDD" Offset="0.5"/>
+			<GradientStop Color="#CDCDCD" Offset="1"/>
+		</LinearGradientBrush>
+		<SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070"/>
+		<Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+			<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+			<Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="1"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<Grid Width="180" Height="180" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="0.872*"/>
+					<RowDefinition Height="0.128*"/>
+				</Grid.RowDefinitions>
+				<Rectangle Fill="White"/>
+				<Image Source="{Binding ScreenShot}" />
+				<TextBlock Text="{Binding Name}" Grid.Row="1" HorizontalAlignment="Center"/>
+				<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="3" CornerRadius="5" x:Name="border" Background="{TemplateBinding Background}"/>
+			</Grid>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</UserControl.Resources>
+<UserControl.DataContext>
+        <local:TheMenu/>
+    </UserControl.DataContext>
+	<Grid x:Name="LayoutRoot" >
+		
+		
+		<ItemsControl ItemsSource="{Binding Mru}"  ItemsPanel="{DynamicResource ItemsPanelTemplate1}" ItemTemplate="{DynamicResource MRUItem}" />
+		
+	</Grid>
+</UserControl>

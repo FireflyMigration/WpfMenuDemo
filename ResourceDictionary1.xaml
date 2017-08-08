@@ -1,0 +1,231 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:local="clr-namespace:MainMenu;assembly=MainMenu"
+   mc:Ignorable="d">
+	<!-- Resource dictionary entries should be defined here. -->
+    <SolidColorBrush Color="#FFC5CCD4" x:Key="lightBluePatternedBackground" />
+	<VisualBrush x:Key="lightBluePatternedBackground1" 
+		TileMode="Tile" Viewport="0,0,10,10" 
+		ViewportUnits="Absolute" Viewbox="0,0,7,2"    
+		ViewboxUnits="Absolute">
+		<VisualBrush.Visual>
+			<Canvas>
+				<Rectangle Fill="#FFC5CCD4" Width="5" Height="2" />
+				<Rectangle Fill="#FFCBD2D8" Canvas.Left="5" Width="2" Height="2" />
+           
+			</Canvas>
+		</VisualBrush.Visual>
+	</VisualBrush>
+	
+	<Style x:Key="ButtonFocusVisual">
+		<Setter Property="Control.Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
+		<GradientStop Color="#F3F3F3" Offset="0"/>
+		<GradientStop Color="#EBEBEB" Offset="0.5"/>
+		<GradientStop Color="#DDDDDD" Offset="0.5"/>
+		<GradientStop Color="#CDCDCD" Offset="1"/>
+	</LinearGradientBrush>
+	<SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070"/>
+	<LinearGradientBrush x:Key="MouseOverBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+		<GradientStop Color="#FF6D84A2" Offset="0"/>
+		<GradientStop Color="#FFB0BCCD" Offset="1"/>
+		<GradientStop Color="#FF8094AE" Offset="0.19"/>
+	</LinearGradientBrush>
+	<LinearGradientBrush x:Key="PressedButton" EndPoint="0.5,1" StartPoint="0.5,0">
+		<GradientStop Color="#FF7B9EE9" Offset="0"/>
+		<GradientStop Color="#FF2463DE" Offset="1"/>
+	</LinearGradientBrush>
+	
+	<Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+		<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+		<Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+		<Setter Property="HorizontalContentAlignment" Value="Left"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="Padding" Value="1"/>
+		
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+					
+					<Grid>
+						<Border x:Name="border" Background="White" BorderBrush="#FFABABAB" CornerRadius="10" BorderThickness="1" RenderTransformOrigin="0.5,0.5">
+							<Border.RenderTransform>
+								<TransformGroup>
+									<ScaleTransform/>
+									<SkewTransform/>
+									<RotateTransform/>
+									<TranslateTransform/>
+								</TransformGroup>
+							</Border.RenderTransform>
+						</Border>
+						<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="10,0,0,0"/>
+					</Grid>
+					<ControlTemplate.Triggers>
+						
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Background" TargetName="border" Value="{DynamicResource MouseOverBrush}"/>
+							<Setter Property="Foreground"  Value="White"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter Property="Background" TargetName="border" Value="{DynamicResource PressedButton}"/>
+							<Setter Property="Foreground"  Value="White"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style x:Key="SubMenuButton" TargetType="{x:Type Button}">
+		<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+		<Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="Padding" Value="1"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+					<Grid>
+						<Border x:Name="border" Background="White" BorderBrush="#FFABABAB" CornerRadius="10" BorderThickness="1">
+							<Grid>
+								<ContentPresenter  HorizontalAlignment="Left" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="10,0,0,0"/>
+							</Grid>
+							
+						</Border>
+						<Path Data="M2,0 L10.75,0 C11.854569,0 12.75,0.72306013 12.75,1.615 12.75,1.6707462 12.746502,1.7258328 12.739675,1.7801244 L12.728527,1.850961 12.731564,1.8805537 C12.737077,1.9477878 12.739902,2.0160065 12.739902,2.085042 L12.739902,10.835042 C12.739902,11.939611 12.016842,12.835042 11.124902,12.835042 10.232962,12.835042 9.509902,11.939611 9.509902,10.835042 L9.509902,3.23 2,3.23 C0.89543048,3.23 -2.7977933E-08,2.5069399 0,1.615 -2.7977933E-08,0.72306013 0.89543048,0 2,0 z" 
+							Fill="#FFABABAB" HorizontalAlignment="Right"
+							Width="10" Height="10" 
+							 RenderTransformOrigin="0.5,0.5" 
+							 Stretch="Fill" VerticalAlignment="Stretch" Margin="0,0,13,0">
+							<Path.RenderTransform>
+								<TransformGroup>
+									<ScaleTransform/>
+									<SkewTransform/>
+									<RotateTransform Angle="45"/>
+									<TranslateTransform/>
+								</TransformGroup>
+							</Path.RenderTransform>
+	
+						</Path>
+						
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Background" TargetName="border" Value="{DynamicResource MouseOverBrush}"/>
+							<Setter Property="Foreground"  Value="White"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter Property="Background" TargetName="border" Value="{DynamicResource PressedButton}"/>
+							<Setter Property="Foreground"  Value="White"/>
+						</Trigger>
+
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style x:Key="SubMenu" TargetType="{x:Type Button}">
+			<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+			<Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="1"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<Grid>
+							
+								
+								<Grid>
+									<Border x:Name="border" Background="White" BorderBrush="#FFABABAB" CornerRadius="10" BorderThickness="1"/>
+									<Border x:Name="border1" Background="White" BorderBrush="#FFABABAB" BorderThickness="1,1,0,1" Width="Auto" Margin="0,0,13.182,0"/>
+									<ContentPresenter  HorizontalAlignment="Left" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="10,0,0,0"/>
+								</Grid>
+							
+							
+							<Path Data="M2,0 L10.75,0 C11.854569,0 12.75,0.72306013 12.75,1.615 12.75,1.6707462 12.746502,1.7258328 12.739675,1.7801244 L12.728527,1.850961 12.731564,1.8805537 C12.737077,1.9477878 12.739902,2.0160065 12.739902,2.085042 L12.739902,10.835042 C12.739902,11.939611 12.016842,12.835042 11.124902,12.835042 10.232962,12.835042 9.509902,11.939611 9.509902,10.835042 L9.509902,3.23 2,3.23 C0.89543048,3.23 -2.7977933E-08,2.5069399 0,1.615 -2.7977933E-08,0.72306013 0.89543048,0 2,0 z" 
+								Fill="#FFABABAB" HorizontalAlignment="Right"
+								Width="10" Height="10" 
+								RenderTransformOrigin="0.5,0.5" 
+								Stretch="Fill" VerticalAlignment="Stretch" Margin="0,0,13,0">
+								<Path.RenderTransform>
+									<TransformGroup>
+										<ScaleTransform/>
+										<SkewTransform/>
+										<RotateTransform Angle="45"/>
+										<TranslateTransform/>
+									</TransformGroup>
+								</Path.RenderTransform>
+	
+							</Path>
+						
+						</Grid>
+						<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Background" TargetName="border" Value="{DynamicResource MouseOverBrush}"/>
+							<Setter Property="Background" TargetName="border1" Value="{DynamicResource MouseOverBrush}"/>
+							<Setter Property="Foreground"  Value="White"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter Property="Background" TargetName="border" Value="{DynamicResource PressedButton}"/>
+							<Setter Property="Background" TargetName="border1" Value="{DynamicResource PressedButton}"/>
+							<Setter Property="Foreground"  Value="White"/>
+						</Trigger>
+
+					</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style x:Key="ButtonMEnu" TargetType="{x:Type Button}">
+			<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+			<Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+			<Setter Property="HorizontalContentAlignment" Value="Left"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="1"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<Grid>
+							<Border x:Name="border" Background="White" BorderBrush="#FFABABAB" CornerRadius="10" BorderThickness="1"/>
+							<Border x:Name="border1" Background="White" BorderBrush="#FFABABAB"  BorderThickness="0,1,1,1" Margin="21.333,0,0,0"/>
+							<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"  Margin="10,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+						</Grid>
+						<ControlTemplate.Triggers>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Background" TargetName="border" Value="{DynamicResource MouseOverBrush}"/>
+							<Setter Property="Background" TargetName="border1" Value="{DynamicResource MouseOverBrush}"/>
+							<Setter Property="Foreground"  Value="White"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter Property="Background" TargetName="border" Value="{DynamicResource PressedButton}"/>
+							<Setter Property="Background" TargetName="border1" Value="{DynamicResource PressedButton}"/>
+							<Setter Property="Foreground"  Value="White"/>
+						</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	
+</ResourceDictionary>
