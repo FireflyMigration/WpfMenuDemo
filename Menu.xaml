@@ -8,23 +8,23 @@
 	mc:Ignorable="d"
 	x:Class="Firefly.Wpf.MenuDemo.Menu"
 	 
-	x:Name="UserControl" d:DesignHeight="480" Width="327">
+	x:Name="UserControl" d:DesignHeight="480" d:DesignWidth="327" Width="auto">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ResourceDictionary1.xaml"/>
                 <ResourceDictionary>
                     <DataTemplate DataType="{x:Type local:SubMenu}">
-                        <Button x:Name="SubMenuButton"  Style="{DynamicResource SubMenuButton}" Content="{Binding Name}" Height="40" Margin="5,5,5,5" Click="SubMenuButton_Click" Command="{Binding Select}">
+                        <Button x:Name="SubMenuButton"  Style="{DynamicResource SubMenuButton}" Content="{Binding Name}" Height="40" Margin="0" Click="SubMenuButton_Click" Command="{Binding Select}">
                         </Button>
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type local:MenuButton}">
-                        <Button  Style="{DynamicResource ButtonStyle1}" Content="{Binding Name}" Height="40" Margin="5,5,5,5" Command="{Binding Command}"/>
+                        <Button  Style="{DynamicResource ButtonStyle1}" Content="{Binding Name}" Height="40" Margin="0" Command="{Binding Command}"/>
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type local:AnotherTypeOfSubMenu}">
 
 
-                        <Grid x:Name="LayoutRoot" Height="40" Margin="5,5,5,5">
+                        <Grid x:Name="LayoutRoot" Height="40" Margin="0,0,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="0.2*"/>
@@ -94,8 +94,8 @@
         <EventTrigger RoutedEvent="FrameworkElement.Loaded">
             <BeginStoryboard Storyboard="{StaticResource Init}"/>
         </EventTrigger>
-       
-        
+
+
     </UserControl.Triggers>
 
 
@@ -103,7 +103,7 @@
         <local:TheMenu/>
     </UserControl.DataContext>
 
-    <Border Background="{DynamicResource lightBluePatternedBackground}" CornerRadius="20" Grid.RowSpan="3" ClipToBounds="True">
+    <Border Background="{DynamicResource lightBluePatternedBackground}" CornerRadius="0" Grid.RowSpan="3" ClipToBounds="True">
         <Grid>
             <Grid x:Name="LayoutRoot" ClipToBounds="True" RenderTransformOrigin="0.5,0.5">
                 <Grid.RenderTransform>
@@ -119,21 +119,11 @@
                     <RowDefinition Height="0.875*"/>
                     <RowDefinition Height="12"/>
                 </Grid.RowDefinitions>
-                
+                <Rectangle Fill="#FFE91E63"></Rectangle>
                 <ScrollViewer Grid.Row="1">
                     <ItemsControl Grid.Row="1" ItemsSource="{Binding Menues}" />
                 </ScrollViewer>
-                <Path Data="M20.000002,4.5474735E-13 L307,4.5474735E-13 C318.04568,-2.4288888E-06 327,8.9543023 327,19.999998 L327,23.499999 327,24.159997 327,44.159994 307,44.159994 20.000002,44.159994 0,44.159994 0,24.159997 0,23.499999 0,19.999998 C0,8.9543023 8.9543047,-2.4288888E-06 20.000002,4.5474735E-13 z" 
-				Stretch="Fill">
-                    <Path.Fill>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFB0BCCD" Offset="0"/>
-                            <GradientStop Color="#FF6D84A2" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Path.Fill>
-                </Path>
                 <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" x:Name= "menuName" VerticalAlignment="Center" FontSize="18" Foreground="White"/>
-                <Rectangle Fill="#FF2D3642" Height="1" VerticalAlignment="Bottom"/>
 
             </Grid>
             <Grid x:Name="LayoutChild" ClipToBounds="True" RenderTransformOrigin="0.5,0.5">
@@ -153,25 +143,9 @@
                 <ScrollViewer Grid.Row="1">
                     <ItemsControl Grid.Row="1" ItemsSource="{Binding CurrentMenu.Items}" />
                 </ScrollViewer>
-                <Path Data="M20.000002,4.5474735E-13 L307,4.5474735E-13 C318.04568,-2.4288888E-06 327,8.9543023 327,19.999998 L327,23.499999 327,24.159997 327,44.159994 307,44.159994 20.000002,44.159994 0,44.159994 0,24.159997 0,23.499999 0,19.999998 C0,8.9543023 8.9543047,-2.4288888E-06 20.000002,4.5474735E-13 z" 
-				Stretch="Fill">
-                    <Path.Fill>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFB0BCCD" Offset="0"/>
-                            <GradientStop Color="#FF6D84A2" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Path.Fill>
-                </Path>
-                <Rectangle Fill="#FF2D3642" Height="1" VerticalAlignment="Bottom"/>
-                <Button x:Name="backButton"  HorizontalAlignment="Left" Margin="6.333,8,0,8" Width="37.667" BorderBrush="#FF546782" Foreground="White" Click="backButton_Click">
-                    <Button.Background>
-                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                            <GradientStop Color="#FF8EA4C1" Offset="0"/>
-                            <GradientStop Color="#FF5877A2" Offset="0.5"/>
-                            <GradientStop Color="#FF5877A2" Offset="0.547"/>
-                            <GradientStop Color="#FF4A6C9B" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Button.Background>
+                <Rectangle Fill="#FFE91E63"></Rectangle>
+                <Button x:Name="backButton"  HorizontalAlignment="Left" Margin="6.333,8,0,8" Width="37.667"   Click="backButton_Click" Background="#FFE91E63" Style="{DynamicResource BackButton}" RenderTransformOrigin="0.5,0.5" >
+
                 </Button>
                 <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding CurrentMenu.Name}" VerticalAlignment="Center" FontSize="18" Foreground="White"/>
 
@@ -193,31 +167,17 @@
                 <ScrollViewer Grid.Row="1">
                     <ItemsControl Grid.Row="1" ItemsSource="{Binding CurrentChildMenu.Items}" />
                 </ScrollViewer>
-                <Path Data="M20.000002,4.5474735E-13 L307,4.5474735E-13 C318.04568,-2.4288888E-06 327,8.9543023 327,19.999998 L327,23.499999 327,24.159997 327,44.159994 307,44.159994 20.000002,44.159994 0,44.159994 0,24.159997 0,23.499999 0,19.999998 C0,8.9543023 8.9543047,-2.4288888E-06 20.000002,4.5474735E-13 z" 
-				Stretch="Fill">
-                    <Path.Fill>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFB0BCCD" Offset="0"/>
-                            <GradientStop Color="#FF6D84A2" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Path.Fill>
-                </Path>
-                <Rectangle Fill="#FF2D3642" Height="1" VerticalAlignment="Bottom"/>
-                <Button x:Name="backButton2"  HorizontalAlignment="Left" Margin="6.333,8,0,8" Width="37.667" BorderBrush="#FF546782" Foreground="White"  Click="backButton_Click"> 
-                    <Button.Background>
-                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                            <GradientStop Color="#FF8EA4C1" Offset="0"/>
-                            <GradientStop Color="#FF5877A2" Offset="0.5"/>
-                            <GradientStop Color="#FF5877A2" Offset="0.547"/>
-                            <GradientStop Color="#FF4A6C9B" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Button.Background>
-                </Button>
-                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding CurrentChildMenu.Name}" VerticalAlignment="Center" FontSize="18" Foreground="White"/>
+                <Rectangle Fill="#FFE91E63"></Rectangle>
+                <Button x:Name="backButton2"  HorizontalAlignment="Left" Margin="6.333,8,0,8" Width="37.667"   Click="backButton_Click" Background="#FFE91E63" Style="{DynamicResource BackButton}" RenderTransformOrigin="0.5,0.5" >
+                   
 
+
+                </Button>
+
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding CurrentChildMenu.Name}" VerticalAlignment="Center" FontSize="18" Foreground="White"/>
             </Grid>
-            
-            
+
+
         </Grid>
     </Border>
 

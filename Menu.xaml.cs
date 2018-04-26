@@ -24,7 +24,7 @@ namespace Firefly.Wpf.MenuDemo
         {
 
             this.InitializeComponent();
-            BackButtonName = "Back";
+            BackButtonName = "<";
         }
         public TheMenu TheMenu { get { return (TheMenu)DataContext; } }
 

@@ -9,7 +9,7 @@
     FontFamily="Segoe UI"
     FontSize="12"
 	Width="640" Height="480">
-	<local:Main/>
+	<local:Main x:Name="myMain" Width="Auto"/>
 
 
 <!--	<Grid x:Name="LayoutRoot" Background="{DynamicResource lightBluePatternedBackground}">

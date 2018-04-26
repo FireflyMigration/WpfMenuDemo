@@ -6,35 +6,39 @@
 	xmlns:local="clr-namespace:Firefly.Wpf.MenuDemo" xmlns:MainMenu="clr-namespace:Firefly.Wpf.MenuDemo" mc:Ignorable="d"
 	x:Class="Firefly.Wpf.MenuDemo.Main"
 	x:Name="UserControl"
-    FontWeight="Bold"
-    FontFamily="Segoe UI"
-    FontSize="12" d:DesignHeight="480" Width="899.625">
+    
+    FontFamily="Roboto"
+    FontSize="14" d:DesignHeight="480" Width="899.625">
     <UserControl.DataContext>
         <MainMenu:TheMenu/>
     </UserControl.DataContext>
-    <Grid x:Name="LayoutRoot">
-    	
+    <Grid x:Name="LayoutRoot" Background="#FFFAFAFA">
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="340"/>
+            <ColumnDefinition Width="328"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-		<Grid.Background>
-			<LinearGradientBrush EndPoint="0.5,0" StartPoint="0,1">
-				<GradientStop Color="#FF9099AE"/>
-				<GradientStop Color="#E39099AE" Offset="1"/>
-			</LinearGradientBrush>
-		</Grid.Background>
-		<local:Menu x:Name="menu" HorizontalAlignment="Left" Margin="10,10,0,10" Grid.RowSpan="2"/>
-		
-		<Border Name="backBorder" Background="White" CornerRadius="20" Margin="10" Grid.Column="1" Grid.RowSpan="2">
-			<Border.Effect>
-				<BlurEffect/>
-			</Border.Effect>
-		</Border>
-		<StackPanel Grid.Column="1" Margin="20">
-			<Image x:Name="LogoImage" Height="60" HorizontalAlignment="Left"/>
-		<local:MRUList x:Name="mru" />
-		
-		</StackPanel>
-	</Grid>
+        <local:Menu x:Name="menu" HorizontalAlignment="Left" Margin="0" Grid.RowSpan="2" Width="328">
+        
+        </local:Menu>
+        <Border 
+            BorderBrush="white"
+            BorderThickness="0,0,1,0"
+            CornerRadius="0">
+            <Border.Effect>
+                <DropShadowEffect />
+            </Border.Effect>
+        </Border>
+
+        <Border Name="backBorder" CornerRadius="0" Margin="10" Grid.Column="1" Grid.RowSpan="2">
+            <Border.Effect>
+                <BlurEffect/>
+            </Border.Effect>
+        </Border>
+        <StackPanel Grid.Column="1" Margin="20" Background="White">
+            <Image x:Name="LogoImage" Height="60" HorizontalAlignment="Left"/>
+            <local:MRUList x:Name="mru" />
+
+        </StackPanel>
+    </Grid>
 </UserControl>

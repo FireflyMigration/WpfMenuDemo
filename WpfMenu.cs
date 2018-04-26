@@ -17,7 +17,7 @@ namespace Firefly.Wpf.MenuDemo
                 if (!string.IsNullOrEmpty(image) && System.IO.File.Exists(image))
                     y.SetBackgroundImage(image);
                 if (!string.IsNullOrEmpty(logoImage))
-                    y.SetLogoInage(logoImage);
+                    y.SetLogoImage(logoImage);
 
             });
 
@@ -33,7 +33,7 @@ namespace Firefly.Wpf.MenuDemo
                 if (!string.IsNullOrEmpty(image) && System.IO.File.Exists(image))
                     y.SetBackgroundImage(image);
                 if (!string.IsNullOrEmpty(logoImage))
-                    y.SetLogoInage(logoImage);
+                    y.SetLogoImage(logoImage);
                 addItems(y.AddMenu);
             });
             x.Run();

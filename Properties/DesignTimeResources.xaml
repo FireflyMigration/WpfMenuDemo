@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Firefly.Wpf.MenuDemo.Properties">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Firefly.Wpf.MenuDemo;component/ResourceDictionary1.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

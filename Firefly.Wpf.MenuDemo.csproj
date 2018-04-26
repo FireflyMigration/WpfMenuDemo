@@ -40,9 +40,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Firefly.Box, Version=3.3.22.5124, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Northwind\Dotnet\Firefly.Box.Dll</HintPath>
+    <Reference Include="Firefly.Box">
+      <HintPath>..\..\FireflyMigration\NorthwindUP\Dotnet\Firefly.Box.Dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
@@ -67,6 +66,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ButtonSubMenu.xaml.cs">
+      <DependentUpon>ButtonSubMenu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MenuClasses.cs" />
     <Compile Include="NewMenu\MenuSample.cs" />
     <Compile Include="NewMenu\UI\MenuSample.UI.cs">
@@ -78,8 +80,8 @@
     <Compile Include="SmoothMove.cs" />
     <Compile Include="WpfMenu.cs" />
     <Page Include="ButtonSubMenu.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Main.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -92,9 +94,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ButtonSubMenu.xaml.cs">
-      <DependentUpon>ButtonSubMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
@@ -110,6 +109,11 @@
     <Page Include="MRUList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Properties\DesignTimeResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
     </Page>
     <Page Include="ResourceDictionary1.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -138,8 +142,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\RioApps\Dotnet\ENV\ENV.csproj">
-      <Project>{2862b63b-88d7-4c5a-a025-5bd20bf4c828}</Project>
+    <ProjectReference Include="..\..\FireflyMigration\NorthwindUP\Dotnet\ENV\ENV.csProj">
+      <Project>{0404cc2b-994d-4b55-9568-31db405855fa}</Project>
       <Name>ENV</Name>
     </ProjectReference>
   </ItemGroup>

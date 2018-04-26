@@ -33,7 +33,7 @@ namespace Firefly.Wpf.MenuDemo
         {
             backBorder.Background = new ImageBrush(new BitmapImage(new Uri(name))) { Stretch = Stretch.UniformToFill };
         }
-        public void SetLogoInage(string name)
+        public void SetLogoImage(string name)
         {
             LogoImage.Source = new BitmapImage(new Uri(name));
         }
@@ -173,7 +173,7 @@ namespace Firefly.Wpf.MenuDemo
         }
 
         public Action<Action> RunActionWrapper = what => {
-            ENV.MenuManager.DoOnMenuManagers(y => y.Run(what));
+            ENV.MenuManager.DoOnMenuManagers(y => y.Run(null,what));
         };
         public string MenuName { get { return menu.MenuName; } set { menu.MenuName = value; } }
 
