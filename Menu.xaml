@@ -104,7 +104,7 @@
     </UserControl.DataContext>
 
     <Border Background="{DynamicResource lightBluePatternedBackground}" CornerRadius="0" Grid.RowSpan="3" ClipToBounds="True">
-        <Grid>
+        <Grid >
             <Grid x:Name="LayoutRoot" ClipToBounds="True" RenderTransformOrigin="0.5,0.5">
                 <Grid.RenderTransform>
                     <TransformGroup>
@@ -117,7 +117,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="0.875*"/>
-                    <RowDefinition Height="12"/>
+                    
                 </Grid.RowDefinitions>
                 <Rectangle Fill="#FFE91E63"></Rectangle>
                 <ScrollViewer Grid.Row="1">
@@ -138,7 +138,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="0.875*"/>
-                    <RowDefinition Height="12"/>
+                    
                 </Grid.RowDefinitions>
                 <ScrollViewer Grid.Row="1">
                     <ItemsControl Grid.Row="1" ItemsSource="{Binding CurrentMenu.Items}" />
@@ -162,13 +162,13 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="0.875*"/>
-                    <RowDefinition Height="12"/>
+                    
                 </Grid.RowDefinitions>
                 <ScrollViewer Grid.Row="1">
                     <ItemsControl Grid.Row="1" ItemsSource="{Binding CurrentChildMenu.Items}" />
                 </ScrollViewer>
                 <Rectangle Fill="#FFE91E63"></Rectangle>
-                <Button x:Name="backButton2"  HorizontalAlignment="Left" Margin="6.333,8,0,8" Width="37.667"   Click="backButton_Click" Background="#FFE91E63" Style="{DynamicResource BackButton}" RenderTransformOrigin="0.5,0.5" >
+                <Button x:Name="backButton2"  HorizontalAlignment="Left" Margin="6.333,8,0,8" Width="37.667"   Click="backButton_Click" Background="#FFE3E3E3" Style="{DynamicResource BackButton}" RenderTransformOrigin="0.5,0.5" >
                    
 
 

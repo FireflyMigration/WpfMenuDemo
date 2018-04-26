@@ -46,8 +46,7 @@ namespace Firefly.Wpf.MenuDemo
             set
             {
                 _backButtonName = value;
-                this.backButton.Content = value;
-                this.backButton2.Content = value;
+            
             }
         }
 
