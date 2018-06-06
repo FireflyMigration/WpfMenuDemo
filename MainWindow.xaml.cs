@@ -23,7 +23,7 @@ namespace Firefly.Wpf.MenuDemo
 			this.InitializeComponent();
             myMain.MenuName = "menu name";
             myMain.SetLogoImage(@"C:\temp\Logo.bmp");
-            myMain.SetBackgroundImage(@"C:\temp\Logo.bmp");
+            myMain.SetBackgroundImage(@"C:\temp\Logo.bmp",0);
             myMain.AddMenu("name", () => { }, x=> { });
             myMain.AddMenu("name", () => { }, x => {
                 x("name", () => { },y => { });

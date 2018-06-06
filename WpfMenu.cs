@@ -8,14 +8,22 @@ namespace Firefly.Wpf.MenuDemo
 {
     public class WpfMenu
     {
-        public static void Run(ToolStrip theMenu, string title = null, string image = null, string logoImage = null)
+        public enum imgStrech
+        {
+            None = 0,
+            Fill = 1,
+            Uniform = 2,
+            UniformToFill = 3
+        }
+
+        public static void Run(ToolStrip theMenu, string title = null, string image = null, string logoImage = null, imgStrech imgStyle=0)
         {
             var x = new Firefly.Wpf.MenuDemo.MenuSample(theMenu, y =>
             {
                 if (!string.IsNullOrEmpty(title))
                     y.MenuName = title;
                 if (!string.IsNullOrEmpty(image) && System.IO.File.Exists(image))
-                    y.SetBackgroundImage(image);
+                    y.SetBackgroundImage(image, (System.Windows.Media.Stretch)imgStyle);
                 if (!string.IsNullOrEmpty(logoImage))
                     y.SetLogoImage(logoImage);
 
@@ -24,14 +32,14 @@ namespace Firefly.Wpf.MenuDemo
 
             x.Run();
         }
-        public static void Run(Action<Action<string, Action, Action<Action<string, Action, Action<Action<string, Action>>>>>> addItems, string title = null, string image = null, string logoImage = null)
+        public static void Run(Action<Action<string, Action, Action<Action<string, Action, Action<Action<string, Action>>>>>> addItems, string title = null, string image = null, string logoImage = null, imgStrech imgStyle = 0)
         {
             var x = new Firefly.Wpf.MenuDemo.MenuSample(y =>
             {
                 if (!string.IsNullOrEmpty(title))
                     y.MenuName = title;
                 if (!string.IsNullOrEmpty(image) && System.IO.File.Exists(image))
-                    y.SetBackgroundImage(image);
+                    y.SetBackgroundImage(image, (System.Windows.Media.Stretch)imgStyle);
                 if (!string.IsNullOrEmpty(logoImage))
                     y.SetLogoImage(logoImage);
                 addItems(y.AddMenu);

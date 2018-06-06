@@ -29,9 +29,9 @@ namespace Firefly.Wpf.MenuDemo
             mru.DataContext = DataContext;
 
         }
-        public void SetBackgroundImage(string name)
+        public void SetBackgroundImage(string name,Stretch imageStrech)
         {
-            backBorder.Background = new ImageBrush(new BitmapImage(new Uri(name))) { Stretch = Stretch.UniformToFill };
+            backBorder.Background = new ImageBrush(new BitmapImage(new Uri(name))) { Stretch = imageStrech };
         }
         public void SetLogoImage(string name)
         {
