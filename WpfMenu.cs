@@ -18,6 +18,14 @@ namespace Firefly.Wpf.MenuDemo
 
         public static void Run(ToolStrip theMenu, string title = null, string image = null, string logoImage = null, imgStrech imgStyle=0)
         {
+            Run(theMenu.Items, title, image, logoImage, imgStyle);
+        }
+        public static void Run(ToolStripMenuItem theMenu, string title = null, string image = null, string logoImage = null, imgStrech imgStyle = 0)
+        {
+            Run(theMenu.DropDownItems, title, image, logoImage, imgStyle);
+        }
+        public static void Run(System.Windows.Forms.ToolStripItemCollection theMenu, string title = null, string image = null, string logoImage = null, imgStrech imgStyle = 0)
+        {
             var x = new Firefly.Wpf.MenuDemo.MenuSample(theMenu, y =>
             {
                 if (!string.IsNullOrEmpty(title))

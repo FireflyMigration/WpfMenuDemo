@@ -19,11 +19,11 @@ namespace Firefly.Wpf.MenuDemo
         static HashSet<string> _menuesToAvoid = new HashSet<string>(){"File","Edit","Options"};
         static string childMenu;
 
-        public MenuSample(System.Windows.Forms.ToolStrip m,Action<Main> more)
+        public MenuSample(System.Windows.Forms.ToolStripItemCollection m,Action<Main> more)
             : this(
                 delegate(Main main)
                 {
-                    foreach (var ii in m.Items)
+                    foreach (var ii in m)
                     {
                         var i = ii as ToolStripMenuItem;
                         if (i!=null)
