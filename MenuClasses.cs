@@ -11,14 +11,11 @@ namespace Firefly.Wpf.MenuDemo
 {
     public class SubMenu : MenuItem
     {
-        Main _parent;
-        public SubMenu(Main parent)
+        public SubMenu()
         {
-            _parent = parent;
             Select = new MenuCommand(() =>
             {
-                if (IAmSelected != null)
-                    IAmSelected();
+                _notifySelected(this);
             });
         }
 
@@ -34,21 +31,27 @@ namespace Firefly.Wpf.MenuDemo
             var sm = mi as SubMenu;
             if (sm != null)
             {
-                sm.NotifySectedTo(z => { _notifySelected(z); });
+                sm.NotifySectedTo(z => { _notifySelected(z); }, _main);
             }
             Items.Add(mi);
         }
 
         public SubMenu AddMenuWithChildren(string name, Action what = null)
         {
-            SubMenu grandParent = null;
+            SubMenu grandParent;
             if (what != null)
-                grandParent = new AnotherTypeOfSubMenu(_parent, name.Trim());
+                grandParent = new AnotherTypeOfSubMenu(name.Trim());
             else
-                grandParent = new SubMenu(_parent) { Name = name.Trim() };
-            _parent.SetActionToMenu(grandParent, what);
+                grandParent = new SubMenu() { Name = name.Trim() };
+            _main.SetActionToMenu(grandParent, what);
             this.Add(grandParent);
             return grandParent;
+        }
+        public void AddMenuButton(string name, Action what = null)
+        {
+            var grandParent = new MenuButton(name.Trim());
+            _main.SetActionToMenu(grandParent, what);
+            this.Add(grandParent);
         }
 
         Action<SubMenu> _notifySelected = delegate { };
@@ -57,8 +60,6 @@ namespace Firefly.Wpf.MenuDemo
         {
             return "Menu " + Name;
         }
-
-        public event Action IAmSelected;
 
         public virtual byte[] ScreenShot
         {
@@ -76,18 +77,26 @@ namespace Firefly.Wpf.MenuDemo
         }
 
         public ICommand Select { get; set; }
-
-        public void NotifySectedTo(Action<SubMenu> func)
+        Main _main;
+        public void NotifySectedTo(Action<SubMenu> func, Main main)
         {
+            _main = main;
             _notifySelected = func;
-            IAmSelected += () => { func(this); };
+            foreach (var item in Items)
+            {
+                var si = item as SubMenu;
+                if (si != null)
+                    si.NotifySectedTo(func, main);
+
+            }
+
         }
     }
     public class AnotherTypeOfSubMenu : SubMenu
     {
         public ICommand Command { get; set; }
 
-        public AnotherTypeOfSubMenu(Main parent, string name) : base(parent)
+        public AnotherTypeOfSubMenu(string name)
         {
             Name = name;
 
@@ -113,7 +122,6 @@ namespace Firefly.Wpf.MenuDemo
     public interface MenuItem
     {
         string Name { get; set; }
-        event Action IAmSelected;
         byte[] ScreenShot { get; }
         void SetAction(Action what);
         void SetScreenShot(byte[] image);
@@ -156,8 +164,7 @@ namespace Firefly.Wpf.MenuDemo
 
         public TheMenu()
         {
-
-
+            _leftMenu = RootMenu;
         }
         public void MenuUsed(MenuItem x)
         {
@@ -173,77 +180,93 @@ namespace Firefly.Wpf.MenuDemo
         }
         public int Level { get; set; }
         SubMenu _currentMenu, _currentChildMenu;
-        public SubMenu CurrentMenu
+        public SubMenu _leftMenu;
+        public SubMenu RootMenu = new SubMenu();
+        public SubMenu MiddleMenu
         {
             get { return _currentMenu; }
             set
             {
                 _currentMenu = value;
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CurrentMenu"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("MiddleMenu"));
             }
         }
-        Stack<SubMenu> _stack = new Stack<SubMenu>();
-        public SubMenu CurrentChildMenu
+        public Stack<SubMenu> _stack = new Stack<SubMenu>();
+        public SubMenu RightMenu
         {
             get { return _currentChildMenu; }
             set
             {
                 _currentChildMenu = value;
                 if (PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("CurrentChildMenu"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("RightMenu"));
             }
         }
 
-        public void Add(SubMenu m)
+        ObservableCollection<MenuItem> _mru = new ObservableCollection<MenuItem>();
+        public void SetLeftMenu(SubMenu m)
         {
-            m.NotifySectedTo(y =>
-                             {
-                                 if (Level == 0)
-                                 {
-                                     CurrentMenu = y;
-                                     Level++;
-                                 }
-                                 else
-                                 {
-                                     _stack.Push(CurrentChildMenu);
-                                     CurrentChildMenu = y;
-                                     Level++;
-                                 }
-                             });
-
-            Menues.Add(m);
+            _leftMenu = m;
+            FireLeftChange();
         }
-        public void Add(MenuItem m)
+        public void FireLeftChange()
         {
 
-            var x = m as SubMenu;
-            if (x != null)
-                Add(x);
-            else
-                Menues.Add(m);
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs("LeftMenu"));
+                PropertyChanged(this, new PropertyChangedEventArgs("_leftMenu"));
+            }
         }
-
-        ObservableCollection<MenuItem> _menues = new ObservableCollection<MenuItem>(), _mru = new ObservableCollection<MenuItem>();
-        public ObservableCollection<MenuItem> Menues { get { return _menues; } }
+        public SubMenu LeftMenu { get { return _leftMenu; } }
         public ObservableCollection<MenuItem> Mru { get { return _mru; } }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void Clear()
         {
-            Menues.Clear();
             Mru.Clear();
         }
 
         internal void BackButton()
         {
             Level--;
-            if (_stack.Count > 1)
-            {
-                CurrentChildMenu = _stack.Pop();
-            }
 
         }
+
+        internal void EnterSubMenu(SubMenu y)
+        {
+            if (Level == 0)
+            {
+                MiddleMenu = y;
+                Level++;
+            }
+            else
+            {
+
+                RightMenu = y;
+                Level++;
+                AfterMiddleScrollToRight = () =>
+                {
+                    _stack.Push(LeftMenu);
+                    SetLeftMenu(MiddleMenu);
+                    MiddleMenu = RightMenu;
+                };
+            }
+        }
+
+        internal bool MiddleScrollToLeftAndReturnTrueToReset()
+        {
+            if (Level == 0)
+                return false;
+            MiddleMenu = LeftMenu;
+            SetLeftMenu(_stack.Pop());
+            return true;
+
+        }
+
+        internal Action AfterMiddleScrollToRight = () => { };
+
     }
 
     class MenuCommand : ICommand

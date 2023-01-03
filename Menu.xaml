@@ -116,9 +116,9 @@
                 </Grid.RowDefinitions>
                 <Rectangle Fill="#FFE91E63"></Rectangle>
                 <ScrollViewer Grid.Row="1">
-                    <ItemsControl Grid.Row="1" ItemsSource="{Binding Menues}" />
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding LeftMenu.Items}" />
                 </ScrollViewer>
-                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" x:Name= "menuName" VerticalAlignment="Center" FontSize="18" Foreground="White"/>
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding LeftMenu.Name}" VerticalAlignment="Center" FontSize="18" Foreground="White"/>
 
             </Grid>
             <Grid x:Name="LayoutChild" ClipToBounds="True" RenderTransformOrigin="0.5,0.5">
@@ -136,13 +136,13 @@
                     
                 </Grid.RowDefinitions>
                 <ScrollViewer Grid.Row="1">
-                    <ItemsControl Grid.Row="1" ItemsSource="{Binding CurrentMenu.Items}" />
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding MiddleMenu.Items}" />
                 </ScrollViewer>
                 <Rectangle Fill="#FFE91E63"></Rectangle>
                 <Button x:Name="backButton"  HorizontalAlignment="Left" Margin="6.333,8,0,8" Width="37.667"   Click="backButton_Click" Background="#FFE91E63" Style="{DynamicResource BackButton}" RenderTransformOrigin="0.5,0.5" >
 
                 </Button>
-                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding CurrentMenu.Name}" VerticalAlignment="Center" FontSize="18" Foreground="White"/>
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding MiddleMenu.Name}" VerticalAlignment="Center" FontSize="18" Foreground="White"/>
 
             </Grid>
             <Grid x:Name="LayoutChild2" ClipToBounds="True" RenderTransformOrigin="0.5,0.5">
@@ -160,7 +160,7 @@
                     
                 </Grid.RowDefinitions>
                 <ScrollViewer Grid.Row="1">
-                    <ItemsControl Grid.Row="1" ItemsSource="{Binding CurrentChildMenu.Items}" />
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding RightMenu.Items}" />
                 </ScrollViewer>
                 <Rectangle Fill="#FFE91E63"></Rectangle>
                 <Button x:Name="backButton2"  HorizontalAlignment="Left" Margin="6.333,8,0,8" Width="37.667"   Click="backButton_Click" Background="#FFE3E3E3" Style="{DynamicResource BackButton}" RenderTransformOrigin="0.5,0.5" >
@@ -169,7 +169,7 @@
 
                 </Button>
 
-                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding CurrentChildMenu.Name}" VerticalAlignment="Center" FontSize="18" Foreground="White"/>
+                <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding RightMenu.Name}" VerticalAlignment="Center" FontSize="18" Foreground="White"/>
             </Grid>
 
 

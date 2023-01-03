@@ -25,11 +25,11 @@ namespace Firefly.Wpf.MenuDemo
             //myMain.SetLogoImage(@"C:\temp\Logo.bmp");
             //myMain.SetBackgroundImage(@"C:\temp\Logo.bmp",0);
 
-            var m = myMain.AddMenuWithChildren("xxx", () => System.Windows.Forms.MessageBox.Show("Test"));
+            var m = myMain.Menu.RootMenu.AddMenuWithChildren("xxx", () => System.Windows.Forms.MessageBox.Show("Test"));
             m.AddMenuWithChildren("yy",
                 () => System.Windows.Forms.MessageBox.Show("Test")).AddMenuWithChildren("zz",
                 () => System.Windows.Forms.MessageBox.Show("Test")).AddMenuWithChildren("aa",null);
-            var mm = myMain.AddMenuWithChildren("xxx");
+            var mm = myMain.Menu.RootMenu.AddMenuWithChildren("xxx");
 
             myMain.AddMenu("name", () => { }, x=> { });
             myMain.AddMenu("name", () => { }, x => {

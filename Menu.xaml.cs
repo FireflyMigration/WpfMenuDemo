@@ -25,16 +25,22 @@ namespace Firefly.Wpf.MenuDemo
 
             this.InitializeComponent();
             BackButtonName = "<";
-            EnterChild2 = ((Storyboard)this.FindResource("EnterChild2"));
-            EnterChild2.Completed += delegate
+            MiddleScrollToRight = ((Storyboard)this.FindResource("EnterChild2"));
+            MiddleScrollToRight.Completed += delegate
             {
-                _afterEnterChild2();
+                TheMenu.AfterMiddleScrollToRight();
+                ((Storyboard)this.FindResource("ResetMiddle")).Begin();
+            };
+            MiddleScrollToLeft = ((Storyboard)this.FindResource("LeaveChild"));
+            MiddleScrollToLeft.Completed += delegate
+            {
+                if (TheMenu.MiddleScrollToLeftAndReturnTrueToReset())
+                    ((Storyboard)this.FindResource("ResetMiddle")).Begin();
+
             };
         }
-        Storyboard EnterChild2;
+        Storyboard MiddleScrollToRight,MiddleScrollToLeft;
         public TheMenu TheMenu { get { return (TheMenu)DataContext; } }
-
-        Action _afterEnterChild2 = () => { };
 
 
         private void SubMenuButton_Click(object sender, RoutedEventArgs e)
@@ -43,18 +49,20 @@ namespace Firefly.Wpf.MenuDemo
                 ((Storyboard)this.FindResource("EnterChild")).Begin();
             else
             {
-                _afterEnterChild2 = () =>
-                {
-                    TheMenu.CurrentMenu = TheMenu.CurrentChildMenu;
-                    ((Storyboard)this.FindResource("ResetMiddle")).Begin();
-                };
-                EnterChild2.Begin();
+                MiddleScrollToRight.Begin();
             }
         }
 
         string _backButtonName;
         string _menuName;
-        public string MenuName { get { return _menuName; } set { _menuName = value; this.menuName.Text = value; } }
+        public string MenuName
+        {
+            get { return _menuName; }
+            set
+            {
+                _menuName = value; this.TheMenu.RootMenu.Name = value; TheMenu.FireLeftChange();
+            }
+        }
 
         public string BackButtonName
         {
@@ -68,17 +76,7 @@ namespace Firefly.Wpf.MenuDemo
 
         void backButton_Click(object sender, RoutedEventArgs e)
         {
-
-            if (TheMenu.Level == 1)
-            {
-                ((Storyboard)this.FindResource("LeaveChild")).Begin();
-
-            }
-            else if (TheMenu.Level == 2)
-            {
-                ((Storyboard)this.FindResource("EnterChild")).Begin();
-
-            }
+            ((Storyboard)this.FindResource("LeaveChild")).Begin();
             TheMenu.BackButton();
         }
     }

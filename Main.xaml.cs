@@ -25,6 +25,11 @@ namespace Firefly.Wpf.MenuDemo
         public Main()
         {
             this.InitializeComponent();
+            Menu.RootMenu.NotifySectedTo(y =>
+            {
+                Menu.EnterSubMenu(y);
+                
+            },this);
             menu.DataContext = DataContext;
             mru.DataContext = DataContext;
 
@@ -40,17 +45,7 @@ namespace Firefly.Wpf.MenuDemo
 
         public TheMenu Menu { get { return (TheMenu)DataContext; } }
 
-        public SubMenu AddMenuWithChildren(string name, Action what = null)
-        {
-            SubMenu grandParent = null;
-            if (what != null)
-                grandParent = new AnotherTypeOfSubMenu(this,name.Trim());
-            else
-                grandParent = new SubMenu(this) { Name = name.Trim() };
-            SetActionToMenu(grandParent, what);
-            Menu.Add(grandParent);
-            return grandParent;
-        }
+
 
         public void AddMenu(string grandParentName, Action grandParentAction, Action<Action<string, Action, Action<Action<string, Action>>>> addSons)
         {
@@ -64,9 +59,9 @@ namespace Firefly.Wpf.MenuDemo
                     if (grandParent == null)
                     {
                         if (grandParentAction != null)
-                            tempGrandParent = new AnotherTypeOfSubMenu(this,grandParentName.Trim());
+                            tempGrandParent = new AnotherTypeOfSubMenu( grandParentName.Trim());
                         else
-                            tempGrandParent = new SubMenu(this) { Name = grandParentName.Trim() };
+                            tempGrandParent = new SubMenu() { Name = grandParentName.Trim() };
                         grandParent = tempGrandParent;
 
                     }
@@ -81,9 +76,9 @@ namespace Firefly.Wpf.MenuDemo
                         if (mb == null)
                         {
                             if (grandParentAction != null)
-                                yy = new AnotherTypeOfSubMenu(this,parentName.Trim());
+                                yy = new AnotherTypeOfSubMenu( parentName.Trim());
                             else
-                                yy = new SubMenu(this) { Name = parentName.Trim() };
+                                yy = new SubMenu() { Name = parentName.Trim() };
                             mb = yy;
 
                         }
@@ -105,7 +100,7 @@ namespace Firefly.Wpf.MenuDemo
                     grandParent = new MenuButton(grandParentName.Trim());
                 }
                 SetActionToMenu(grandParent, grandParentAction);
-                Menu.Add(grandParent);
+                Menu.RootMenu.Add(grandParent);
 
             };
         }

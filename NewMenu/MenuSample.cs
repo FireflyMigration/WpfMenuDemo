@@ -23,30 +23,37 @@ namespace Firefly.Wpf.MenuDemo
             : this(
                 delegate(Main main)
                 {
-                    foreach (var ii in m)
-                    {
-                        var i = ii as ToolStripMenuItem;
-                        if (i!=null)
-                        {
-                            Action z= null;
-                            if (i.DropDownItems.Count==0)
-                                z = () => CallClickEvent(i);
-
-                            menuName = i.Text.Replace("&","").Replace("...","");
-                            if (_menuesToAvoid.Contains(menuName)||!i.Available)
-                                continue;
-                            main.AddMenu(menuName,
-                                z, 
-                                y =>
-                                    {
-                                        SendChildren(i, y);
-                                    });
-                        }
-                    }
+                    var x = main.Menu.RootMenu;
+                    AddChildItems(m, x);
                     more(main);
                 })
         {
 
+        }
+
+        private static void AddChildItems(ToolStripItemCollection m, SubMenu x)
+        {
+            foreach (var ii in m)
+            {
+                var i = ii as ToolStripMenuItem;
+                if (i != null)
+                {
+                    menuName = i.Text.Replace("&", "").Replace("...", "");
+                    if (_menuesToAvoid.Contains(menuName) || !i.Available)
+                        continue;
+                    Action z = null;
+                    if (i.DropDownItems.Count == 0)
+                    {
+                        x.AddMenuButton(menuName, () => CallClickEvent(i));
+                    }
+                    else
+                    {
+
+                        var s = x.AddMenuWithChildren(menuName);
+                        AddChildItems(i.DropDownItems,s);
+                    }
+                }
+            }
         }
 
         static void SendChildren(ToolStripMenuItem i, Action<string, Action, Action<Action<string, Action>>> y)
