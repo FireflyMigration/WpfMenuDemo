@@ -44,6 +44,17 @@
                             <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="330"/>
                         </DoubleAnimationUsingKeyFrames>
                     </Storyboard>
+                    <Storyboard x:Key="ResetMiddle">
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="LayoutRoot">
+                            <SplineDoubleKeyFrame KeyTime="0:0:0" Value="-330"/>
+                        </DoubleAnimationUsingKeyFrames>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="LayoutChild">
+                            <SplineDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                        </DoubleAnimationUsingKeyFrames>
+                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="LayoutChild2">
+                            <SplineDoubleKeyFrame KeyTime="0:0:0" Value="330"/>
+                        </DoubleAnimationUsingKeyFrames>
+                    </Storyboard>
                     <Storyboard x:Key="LeaveChild">
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="LayoutRoot">
                             <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
@@ -51,7 +62,6 @@
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="LayoutChild">
                             <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="330"/>
                         </DoubleAnimationUsingKeyFrames>
-
                     </Storyboard>
                     <Storyboard x:Key="EnterChild2">
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="LayoutChild">
