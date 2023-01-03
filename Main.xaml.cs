@@ -29,7 +29,7 @@ namespace Firefly.Wpf.MenuDemo
             mru.DataContext = DataContext;
 
         }
-        public void SetBackgroundImage(string name,Stretch imageStrech)
+        public void SetBackgroundImage(string name, Stretch imageStrech)
         {
             backBorder.Background = new ImageBrush(new BitmapImage(new Uri(name))) { Stretch = imageStrech };
         }
@@ -39,6 +39,18 @@ namespace Firefly.Wpf.MenuDemo
         }
 
         public TheMenu Menu { get { return (TheMenu)DataContext; } }
+
+        public SubMenu AddMenuWithChildren(string name, Action what = null)
+        {
+            SubMenu grandParent = null;
+            if (what != null)
+                grandParent = new AnotherTypeOfSubMenu(this,name.Trim());
+            else
+                grandParent = new SubMenu(this) { Name = name.Trim() };
+            SetActionToMenu(grandParent, what);
+            Menu.Add(grandParent);
+            return grandParent;
+        }
 
         public void AddMenu(string grandParentName, Action grandParentAction, Action<Action<string, Action, Action<Action<string, Action>>>> addSons)
         {
@@ -52,9 +64,9 @@ namespace Firefly.Wpf.MenuDemo
                     if (grandParent == null)
                     {
                         if (grandParentAction != null)
-                            tempGrandParent = new AnotherTypeOfSubMenu(grandParentName.Trim());
+                            tempGrandParent = new AnotherTypeOfSubMenu(this,grandParentName.Trim());
                         else
-                            tempGrandParent = new SubMenu() { Name = grandParentName.Trim() };
+                            tempGrandParent = new SubMenu(this) { Name = grandParentName.Trim() };
                         grandParent = tempGrandParent;
 
                     }
@@ -69,9 +81,9 @@ namespace Firefly.Wpf.MenuDemo
                         if (mb == null)
                         {
                             if (grandParentAction != null)
-                                yy = new AnotherTypeOfSubMenu(parentName.Trim());
+                                yy = new AnotherTypeOfSubMenu(this,parentName.Trim());
                             else
-                                yy = new SubMenu() { Name = parentName.Trim() };
+                                yy = new SubMenu(this) { Name = parentName.Trim() };
                             mb = yy;
 
                         }
@@ -152,7 +164,7 @@ namespace Firefly.Wpf.MenuDemo
                 Dispose();
                 obj.End += () =>
                                {
-                                   Firefly.Box.Context.Current.InvokeUICommand(()=>GetFormImage(obj.View));
+                                   Firefly.Box.Context.Current.InvokeUICommand(() => GetFormImage(obj.View));
                                };
 
 
@@ -167,19 +179,20 @@ namespace Firefly.Wpf.MenuDemo
                 if (_disposed)
                     return;
                 _disposed = true;
-            //    ENV.AbstractUIController.StartOfInstance -= AbstractUIController_StartOfInstance;
+                //    ENV.AbstractUIController.StartOfInstance -= AbstractUIController_StartOfInstance;
                 //          ENV.BusinessProcessBase.StartOfInstance -= AbstractUIController_StartOfInstance;
             }
         }
 
-        public Action<Action> RunActionWrapper = what => {
-            ENV.MenuManager.DoOnMenuManagers(y => y.Run(null,what));
+        public Action<Action> RunActionWrapper = what =>
+        {
+            ENV.MenuManager.DoOnMenuManagers(y => y.Run(null, what));
         };
         public string MenuName { get { return menu.MenuName; } set { menu.MenuName = value; } }
 
         public string BackButtonName { get { return menu.BackButtonName; } set { menu.BackButtonName = value; } }
 
-        void SetActionToMenu(MenuItem item, Action what)
+        internal void SetActionToMenu(MenuItem item, Action what)
         {
             item.SetAction(() =>
                                {

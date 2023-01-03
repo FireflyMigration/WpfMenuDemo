@@ -52,16 +52,18 @@ namespace Firefly.Wpf.MenuDemo
 
         void backButton_Click(object sender, RoutedEventArgs e)
         {
+            
             if (TheMenu.Level == 1)
             {
                 ((Storyboard) this.FindResource("LeaveChild")).Begin();
-                TheMenu.Level--;
+
             }
-            else
+            else if (TheMenu.Level==2)
             {
                 ((Storyboard) this.FindResource("EnterChild")).Begin();
-                TheMenu.Level--;
+
             }
+            TheMenu.BackButton();
         }
     }
 }

@@ -11,8 +11,10 @@ namespace Firefly.Wpf.MenuDemo
 {
     public class SubMenu : MenuItem
     {
-        public SubMenu()
+        Main _parent;
+        public SubMenu(Main parent)
         {
+            _parent = parent;
             Select = new MenuCommand(() =>
             {
                 if (IAmSelected != null)
@@ -35,6 +37,18 @@ namespace Firefly.Wpf.MenuDemo
                 sm.NotifySectedTo(z => { _notifySelected(z); });
             }
             Items.Add(mi);
+        }
+
+        public SubMenu AddMenuWithChildren(string name, Action what = null)
+        {
+            SubMenu grandParent = null;
+            if (what != null)
+                grandParent = new AnotherTypeOfSubMenu(_parent, name.Trim());
+            else
+                grandParent = new SubMenu(_parent) { Name = name.Trim() };
+            _parent.SetActionToMenu(grandParent, what);
+            this.Add(grandParent);
+            return grandParent;
         }
 
         Action<SubMenu> _notifySelected = delegate { };
@@ -73,7 +87,7 @@ namespace Firefly.Wpf.MenuDemo
     {
         public ICommand Command { get; set; }
 
-        public AnotherTypeOfSubMenu(string name)
+        public AnotherTypeOfSubMenu(Main parent, string name) : base(parent)
         {
             Name = name;
 
@@ -139,10 +153,10 @@ namespace Firefly.Wpf.MenuDemo
     }
     public class TheMenu : INotifyPropertyChanged
     {
-        
+
         public TheMenu()
         {
-            
+
 
         }
         public void MenuUsed(MenuItem x)
@@ -158,7 +172,7 @@ namespace Firefly.Wpf.MenuDemo
             }
         }
         public int Level { get; set; }
-        SubMenu _currentMenu,_currentChildMenu;
+        SubMenu _currentMenu, _currentChildMenu;
         public SubMenu CurrentMenu
         {
             get { return _currentMenu; }
@@ -169,6 +183,7 @@ namespace Firefly.Wpf.MenuDemo
                     PropertyChanged(this, new PropertyChangedEventArgs("CurrentMenu"));
             }
         }
+        Stack<SubMenu> _stack = new Stack<SubMenu>();
         public SubMenu CurrentChildMenu
         {
             get { return _currentChildMenu; }
@@ -191,11 +206,12 @@ namespace Firefly.Wpf.MenuDemo
                                  }
                                  else
                                  {
+                                     _stack.Push(CurrentChildMenu);
                                      CurrentChildMenu = y;
                                      Level++;
                                  }
                              });
-            
+
             Menues.Add(m);
         }
         public void Add(MenuItem m)
@@ -217,6 +233,16 @@ namespace Firefly.Wpf.MenuDemo
         {
             Menues.Clear();
             Mru.Clear();
+        }
+
+        internal void BackButton()
+        {
+            Level--;
+            if (_stack.Count > 1)
+            {
+                CurrentChildMenu = _stack.Pop();
+            }
+
         }
     }
 
