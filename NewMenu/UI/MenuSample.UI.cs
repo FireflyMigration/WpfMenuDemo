@@ -23,8 +23,7 @@ namespace Firefly.Wpf.MenuDemo.UI
             
             x.Menu.Clear();
             populateMenu(x);
-
-
+            x.menu.SetButtonClickedColor(x.Menu.TitleColor);
 
 
             this.elementHost1.Child = x;

@@ -79,5 +79,10 @@ namespace Firefly.Wpf.MenuDemo
             ((Storyboard)this.FindResource("LeaveChild")).Begin();
             TheMenu.BackButton();
         }
+
+        internal void SetButtonClickedColor(string color)
+        {
+            ((SolidColorBrush)this.FindResource("PressedButton")).Color = (System.Windows.Media.Color)new ColorConverter().ConvertFrom(color);
+        }
     }
 }

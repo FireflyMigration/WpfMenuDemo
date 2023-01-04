@@ -41,7 +41,8 @@ namespace Firefly.Wpf.MenuDemo
             myMain.AddMenu("name", () => { }, x => { });
             myMain.AddMenu("name", () => { }, x => { });
             myMain.AddMenu("name", () => { }, x => { });
-            
+            myMain.Menu.TitleColor = "Yellow";
+            myMain.menu.SetButtonClickedColor(myMain.Menu.TitleColor);
         }
 	}
 }

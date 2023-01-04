@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Firefly.Wpf.MenuDemo
 {
@@ -165,6 +166,20 @@ namespace Firefly.Wpf.MenuDemo
         public TheMenu()
         {
             _leftMenu = RootMenu;
+        }
+        string _color = "#FFE91E63";
+        public string TitleColor
+        {
+            get
+            {
+                return _color;
+            }
+            set
+            {
+                _color = value;
+                if (PropertyChanged != null)
+                    PropertyChanged(this, new PropertyChangedEventArgs("TitleColor"));
+            }
         }
         public void MenuUsed(MenuItem x)
         {

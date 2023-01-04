@@ -24,7 +24,7 @@ namespace Firefly.Wpf.MenuDemo
         {
             Run(theMenu.DropDownItems, title, image, logoImage, imgStyle);
         }
-        public static void Run(System.Windows.Forms.ToolStripItemCollection theMenu, string title = null, string image = null, string logoImage = null, imgStrech imgStyle = 0)
+        public static void Run(System.Windows.Forms.ToolStripItemCollection theMenu, string title = null, string image = null, string logoImage = null, imgStrech imgStyle = 0,string titleColor=null)
         {
             var x = new Firefly.Wpf.MenuDemo.MenuSample(theMenu, y =>
             {
@@ -34,6 +34,8 @@ namespace Firefly.Wpf.MenuDemo
                     y.SetBackgroundImage(image, (System.Windows.Media.Stretch)imgStyle);
                 if (!string.IsNullOrEmpty(logoImage))
                     y.SetLogoImage(logoImage);
+                if (!string.IsNullOrEmpty(titleColor))
+                    y.Menu.TitleColor = titleColor;
 
             });
 
